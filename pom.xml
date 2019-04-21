@@ -6,7 +6,7 @@
 
     <groupId>com.github.leftpathlane</groupId>
     <artifactId>jnbt</artifactId>
-    <version>0.0.0</version>
+    <version>0.0.1</version>
     <build>
         <plugins>
             <plugin>

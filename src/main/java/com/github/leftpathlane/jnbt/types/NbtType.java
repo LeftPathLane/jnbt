@@ -33,6 +33,54 @@ public abstract class NbtType<T> {
 		return this.id;
 	}
 
+	public NbtByte asByte() {
+		return id == NBT_TAG_BYTE ? (NbtByte) this : null;
+	}
+
+	public NbtShort asShort() {
+		return id == NBT_TAG_SHORT ? (NbtShort) this : null;
+	}
+
+	public NbtInt asInt() {
+		return id == NBT_TAG_INT ? (NbtInt) this : null;
+	}
+
+	public NbtLong asLong() {
+		return id == NBT_TAG_LONG ? (NbtLong) this : null;
+	}
+
+	public NbtFloat asFloat() {
+		return id == NBT_TAG_FLOAT ? (NbtFloat) this : null;
+	}
+
+	public NbtDouble asDouble() {
+		return id == NBT_TAG_DOUBLE ? (NbtDouble) this : null;
+	}
+
+	public NbtByteArray asByteArray() {
+		return id == NBT_TAG_BYTE_ARRAY ? (NbtByteArray) this : null;
+	}
+
+	public NbtString asString() {
+		return id == NBT_TAG_STRING ? (NbtString) this : null;
+	}
+
+	public NbtList asList() {
+		return id == NBT_TAG_LIST ? (NbtList) this : null;
+	}
+
+	public NbtCompound asCompound() {
+		return id == NBT_TAG_COMPOUND ? (NbtCompound) this : null;
+	}
+
+	public NbtIntArray asIntArray() {
+		return id == NBT_TAG_INT_ARRAY ? (NbtIntArray) this : null;
+	}
+
+	public NbtLongArray asLongArray() {
+		return id == NBT_TAG_LONG_ARRAY ? (NbtLongArray) this : null;
+	}
+
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " Name:\"" + name + "\" Value\"" + (getValue() == null ? "null" : getValue()) + "\"";
