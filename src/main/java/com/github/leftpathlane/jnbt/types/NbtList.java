@@ -13,6 +13,10 @@ public class NbtList extends NbtType<List<NbtType>> {
 		this.value = value;
 	}
 
+	public void addNbt(NbtType nbt) {
+		value.add(nbt);
+	}
+
 	public void addNbt(byte val) {
 		value.add(new NbtByte(null, val));
 	}

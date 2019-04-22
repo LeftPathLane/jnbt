@@ -12,6 +12,10 @@ public class NbtCompound extends NbtType<Map<String, NbtType>> {
 		this.value = value;
 	}
 
+	public void addNbt(NbtType nbt) {
+		value.put(nbt.getName(), nbt);
+	}
+
 	public void addNbt(String name, byte val) {
 		value.put(name, new NbtByte(name, val));
 	}

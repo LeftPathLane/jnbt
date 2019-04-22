@@ -34,6 +34,10 @@ public class NbtReader {
 		}
 	}
 
+	public NbtReader(DataInputStream in) {
+		this.in = in;
+	}
+
 	public NbtReader(InputStream in) {
 		this.in = new DataInputStream(in);
 	}
