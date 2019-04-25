@@ -8,6 +8,10 @@ public class NbtByte extends NbtType<Byte> {
 		this.value = value;
 	}
 
+	public boolean asBoolean() {
+		return value == 1;
+	}
+
 	@Override
 	public Byte getValue() {
 		return value;
