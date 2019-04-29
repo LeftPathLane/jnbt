@@ -85,4 +85,8 @@ public abstract class NbtType<T> {
 	public String toString() {
 		return this.getClass().getSimpleName() + " Name:\"" + name + "\" Value\"" + (getValue() == null ? "null" : getValue()) + "\"";
 	}
+
+	public String toJson() {
+		return name == null || name.isEmpty() ? String.valueOf(getValue()) : "\"" + name + "\":" + getValue();
+	}
 }

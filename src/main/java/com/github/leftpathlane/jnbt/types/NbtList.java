@@ -2,6 +2,7 @@ package com.github.leftpathlane.jnbt.types;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class NbtList extends NbtType<List<NbtType>> {
 	private final List<NbtType> value;
@@ -72,5 +73,14 @@ public class NbtList extends NbtType<List<NbtType>> {
 
 	public int getType() {
 		return type;
+	}
+
+	@Override
+	public String toJson() {
+		StringJoiner joiner = new StringJoiner(",");
+		for (NbtType val : value) {
+			joiner.add(val.toJson());
+		}
+		return name == null || name.isEmpty() ? joiner.toString() : "\"" + name + "\":[" + joiner.toString() + "]";
 	}
 }

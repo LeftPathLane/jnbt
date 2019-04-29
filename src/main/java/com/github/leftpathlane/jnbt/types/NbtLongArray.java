@@ -1,5 +1,7 @@
 package com.github.leftpathlane.jnbt.types;
 
+import java.util.StringJoiner;
+
 public class NbtLongArray extends NbtType<long[]> {
 	private final long[] value;
 
@@ -11,5 +13,14 @@ public class NbtLongArray extends NbtType<long[]> {
 	@Override
 	public long[] getValue() {
 		return value;
+	}
+
+	@Override
+	public String toJson() {
+		StringJoiner joiner = new StringJoiner(",");
+		for (long val : value) {
+			joiner.add(Long.toString(val));
+		}
+		return name == null || name.isEmpty() ? joiner.toString() : "\"" + name + "\":[" + joiner.toString() + "]";
 	}
 }

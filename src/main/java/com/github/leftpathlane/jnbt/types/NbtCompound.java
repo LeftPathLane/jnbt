@@ -3,6 +3,7 @@ package com.github.leftpathlane.jnbt.types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 public class NbtCompound extends NbtType<Map<String, NbtType>> {
 	private final Map<String, NbtType> value;
@@ -68,5 +69,14 @@ public class NbtCompound extends NbtType<Map<String, NbtType>> {
 	@Override
 	public Map<String, NbtType> getValue() {
 		return value;
+	}
+
+	@Override
+	public String toJson() {
+		StringJoiner joiner = new StringJoiner(",");
+		for (NbtType val : value.values()) {
+			joiner.add(val.toJson());
+		}
+		return name == null || name.isEmpty() ? joiner.toString() : "\"" + name + "\":{" + joiner.toString() + "}";
 	}
 }

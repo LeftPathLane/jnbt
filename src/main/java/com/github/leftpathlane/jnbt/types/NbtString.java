@@ -12,4 +12,9 @@ public class NbtString extends NbtType<String> {
 	public String getValue() {
 		return value;
 	}
+
+	@Override
+	public String toJson() {
+		return name == null || name.isEmpty() ? "\"" + value + "\"" : "\"" + name + "\":\"" + value + "\"";
+	}
 }
