@@ -8,6 +8,14 @@ import java.util.StringJoiner;
 public class NbtCompound extends NbtType<Map<String, NbtType>> {
 	private final Map<String, NbtType> value;
 
+	public NbtCompound() {
+		this(null, new HashMap<>());
+	}
+
+	public NbtCompound(String name) {
+		this(name, new HashMap<>());
+	}
+
 	public NbtCompound(String name, Map<String, NbtType> value) {
 		super(name, NBT_TAG_COMPOUND);
 		this.value = value;
@@ -65,6 +73,9 @@ public class NbtCompound extends NbtType<Map<String, NbtType>> {
 		value.put(name, new NbtLongArray(name, val));
 	}
 
+	public NbtType getNbt(String name) {
+		return value.get(name);
+	}
 
 	@Override
 	public Map<String, NbtType> getValue() {

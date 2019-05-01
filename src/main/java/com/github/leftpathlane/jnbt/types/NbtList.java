@@ -1,5 +1,6 @@
 package com.github.leftpathlane.jnbt.types;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.StringJoiner;
@@ -7,6 +8,10 @@ import java.util.StringJoiner;
 public class NbtList extends NbtType<List<NbtType>> {
 	private final List<NbtType> value;
 	private final int type;
+
+	public NbtList(String name, int type) {
+		this(name, type, new ArrayList<>());
+	}
 
 	public NbtList(String name, int type, List<NbtType> value) {
 		super(name, NBT_TAG_LIST);
