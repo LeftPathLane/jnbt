@@ -77,6 +77,10 @@ public class NbtWriter {
 	}
 
 	private void writeString(String string) throws IOException {
+		if (string == null || string.isEmpty()) {
+			out.writeShort(0);
+			return;
+		}
 		out.writeShort(string.length());
 		out.write(string.getBytes());
 	}
