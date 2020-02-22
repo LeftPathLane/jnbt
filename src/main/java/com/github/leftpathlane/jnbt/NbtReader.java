@@ -42,11 +42,11 @@ public class NbtReader {
 		this.in = new DataInputStream(in);
 	}
 
-	public NbtCompound readAll() throws IOException {
+	public NbtCompound readAll() throws IOException, NbtTagException {
 		return (NbtCompound) read(false, 0);
 	}
 
-	private NbtType read(boolean list, int listId) throws IOException {
+	private NbtType read(boolean list, int listId) throws IOException, NbtTagException {
 		int id = list ? listId : in.read();
 		if (id == NbtType.NBT_TAG_END) return null;
 		String name = list ? "" : readString();
@@ -104,7 +104,7 @@ public class NbtReader {
 				return new NbtLongArray(name, longs);
 			}
 			default:
-				return null;
+			    throw new NbtTagException(id, name);
 		}
 	}
 
@@ -114,4 +114,27 @@ public class NbtReader {
 		in.read(stringBytes);
 		return new String(stringBytes);
 	}
+
+	public static class NbtTagException extends Exception {
+	    private final int nbtTagId;
+        private final String nbtTagName;
+
+        private NbtTagException(int nbtTagId, String nbtTagName) {
+            this.nbtTagId = nbtTagId;
+            this.nbtTagName = nbtTagName;
+        }
+
+        public int getId() {
+            return nbtTagId;
+        }
+
+        public String getName() {
+            return nbtTagName;
+        }
+
+        @Override
+        public String getMessage() {
+            return "Error reading tag " + nbtTagName + " with id " + nbtTagId;
+        }
+    }
 }

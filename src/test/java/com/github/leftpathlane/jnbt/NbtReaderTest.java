@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class NbtReaderTest {
 
 	@Test
-	public void testReader() throws IOException {
+	public void testReader() throws IOException, NbtReader.NbtTagException {
 		File file = new File(this.getClass().getClassLoader().getResource("bigtest.nbt").getFile());
 		NbtReader reader = new NbtReader(file);
 		NbtCompound nbt = reader.readAll();
