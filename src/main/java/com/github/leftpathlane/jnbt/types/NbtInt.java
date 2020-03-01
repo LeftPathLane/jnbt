@@ -12,4 +12,13 @@ public class NbtInt extends NbtType<Integer> {
 	public Integer getValue() {
 		return value;
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!super.equals(object)) return false;
+		if (object instanceof NbtInt) {
+			return value == ((NbtInt) object).value;
+		}
+		return false;
+	}
 }

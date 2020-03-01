@@ -16,4 +16,13 @@ public class NbtByte extends NbtType<Byte> {
 	public Byte getValue() {
 		return value;
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!super.equals(object)) return false;
+		if (object instanceof NbtByte) {
+			return value == ((NbtByte) object).value;
+		}
+		return false;
+	}
 }

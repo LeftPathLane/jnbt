@@ -90,4 +90,20 @@ public class NbtCompound extends NbtType<Map<String, NbtType>> {
 		}
 		return name == null || name.isEmpty() ? joiner.toString() : "\"" + name + "\":{" + joiner.toString() + "}";
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!super.equals(object)) return false;
+		if (object instanceof NbtCompound) {
+			if (value.size() != ((NbtCompound) object).value.size()) return false;
+			NbtType<?> t;
+			for (Map.Entry<String, NbtType> entry : ((NbtCompound) object).value.entrySet()) {
+				t = value.get(entry.getKey());
+				if (t == null) return false;
+				if (!t.equals(entry.getValue())) return false;
+			}
+			return true;
+		}
+		return false;
+	}
 }

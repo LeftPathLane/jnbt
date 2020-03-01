@@ -13,4 +13,13 @@ public class NbtShort extends NbtType<Short> {
 	public Short getValue() {
 		return value;
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!super.equals(object)) return false;
+		if (object instanceof NbtShort) {
+			return value == ((NbtShort) object).value;
+		}
+		return false;
+	}
 }

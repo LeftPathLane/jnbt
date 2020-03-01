@@ -89,4 +89,15 @@ public abstract class NbtType<T> {
 	public String toJson() {
 		return name == null || name.isEmpty() ? String.valueOf(getValue()) : "\"" + name + "\":" + getValue();
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) return true;
+		if (object instanceof NbtType) {
+			if (((NbtType) object).id != id) return false;
+			if (name.length() != ((NbtType) object).name.length()) return false;
+			return name.equals(((NbtType) object).name);
+		}
+		return false;
+	}
 }

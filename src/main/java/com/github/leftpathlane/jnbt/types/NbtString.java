@@ -17,4 +17,14 @@ public class NbtString extends NbtType<String> {
 	public String toJson() {
 		return name == null || name.isEmpty() ? "\"" + value + "\"" : "\"" + name + "\":\"" + value + "\"";
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!super.equals(object)) return false;
+		if (object instanceof NbtString) {
+			if (value.length() != ((NbtString) object).value.length()) return false;
+			return value.equals(((NbtString) object).value);
+		}
+		return false;
+	}
 }

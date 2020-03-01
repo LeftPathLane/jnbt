@@ -12,4 +12,13 @@ public class NbtFloat extends NbtType<Float> {
 	public Float getValue() {
 		return value;
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!super.equals(object)) return false;
+		if (object instanceof NbtFloat) {
+			return value == ((NbtFloat) object).value;
+		}
+		return false;
+	}
 }

@@ -12,4 +12,13 @@ public class NbtDouble extends NbtType<Double> {
 	public Double getValue() {
 		return value;
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!super.equals(object)) return false;
+		if (object instanceof NbtDouble) {
+			return value == ((NbtDouble) object).value;
+		}
+		return false;
+	}
 }

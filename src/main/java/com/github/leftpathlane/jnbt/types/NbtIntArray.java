@@ -1,5 +1,6 @@
 package com.github.leftpathlane.jnbt.types;
 
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 public class NbtIntArray extends NbtType<int[]> {
@@ -22,5 +23,14 @@ public class NbtIntArray extends NbtType<int[]> {
 			joiner.add(Integer.toString(val));
 		}
 		return name == null || name.isEmpty() ? joiner.toString() : "\"" + name + "\":[" + joiner.toString() + "]";
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!super.equals(object)) return false;
+		if (object instanceof NbtIntArray) {
+			return Arrays.equals(value, ((NbtIntArray) object).value);
+		}
+		return false;
 	}
 }
