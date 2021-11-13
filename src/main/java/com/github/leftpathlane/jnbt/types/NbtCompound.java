@@ -17,7 +17,7 @@ public class NbtCompound extends NbtType<Map<String, NbtType<?>>> {
 	}
 
 	public NbtCompound(String name, Map<String, NbtType<?>> value) {
-		super(name, NBT_TAG_COMPOUND);
+		super(name, NbtTag.NBT_TAG_COMPOUND);
 		this.value = value;
 	}
 
@@ -57,7 +57,7 @@ public class NbtCompound extends NbtType<Map<String, NbtType<?>>> {
 		value.put(name, new NbtString(name, val));
 	}
 
-	public void addNbt(String name, int nbtType, List<NbtType<?>> val) {
+	public void addNbt(String name, NbtTag nbtType, List<NbtType<?>> val) {
 		value.put(name, new NbtList(name, nbtType, val));
 	}
 

@@ -4,7 +4,7 @@ public class NbtShort extends NbtType<Short> {
 	private final short value;
 
 	public NbtShort(String name, short value) {
-		super(name, NBT_TAG_SHORT);
+		super(name, NbtTag.NBT_TAG_SHORT);
 		this.value = value;
 	}
 

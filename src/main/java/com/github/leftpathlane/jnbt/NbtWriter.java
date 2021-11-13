@@ -17,54 +17,54 @@ public class NbtWriter {
 	}
 
 	private void writeNbt(NbtType nbt, boolean list) throws IOException {
-		if (!list) out.write(nbt.getId());
+		if (!list) out.write(nbt.getId().ordinal());
 		if (!list) writeString(nbt.getName());
 		switch (nbt.getId()) {
-			case NbtType.NBT_TAG_BYTE:
+			case NBT_TAG_BYTE:
 				out.write(((NbtByte) nbt).getValue());
 				break;
-			case NbtType.NBT_TAG_SHORT:
+			case NBT_TAG_SHORT:
 				out.writeShort(((NbtShort) nbt).getValue());
 				break;
-			case NbtType.NBT_TAG_INT:
+			case NBT_TAG_INT:
 				out.writeInt(((NbtInt) nbt).getValue());
 				break;
-			case NbtType.NBT_TAG_LONG:
+			case NBT_TAG_LONG:
 				out.writeLong(((NbtLong) nbt).getValue());
 				break;
-			case NbtType.NBT_TAG_FLOAT:
+			case NBT_TAG_FLOAT:
 				out.writeFloat(((NbtFloat) nbt).getValue());
 				break;
-			case NbtType.NBT_TAG_DOUBLE:
+			case NBT_TAG_DOUBLE:
 				out.writeDouble((((NbtDouble) nbt).getValue()));
 				break;
-			case NbtType.NBT_TAG_BYTE_ARRAY:
+			case NBT_TAG_BYTE_ARRAY:
 				out.writeInt(((NbtByteArray) nbt).getValue().length);
 				out.write(((NbtByteArray) nbt).getValue());
 				break;
-			case NbtType.NBT_TAG_STRING:
+			case NBT_TAG_STRING:
 				writeString(((NbtString) nbt).getValue());
 				break;
-			case NbtType.NBT_TAG_LIST:
-				out.write(((NbtList) nbt).getType());
+			case NBT_TAG_LIST:
+				out.write(((NbtList) nbt).getType().ordinal());
 				out.writeInt(((NbtList) nbt).getValue().size());
 				for (NbtType type : ((List<NbtType>)((NbtList) nbt).getValue())) {
 					writeNbt(type, true);
 				}
 				break;
-			case NbtType.NBT_TAG_COMPOUND:
+			case NBT_TAG_COMPOUND:
 				for (NbtType type : ((NbtCompound) nbt).getValue().values()) {
 					writeNbt(type, false);
 				}
-				out.write(NbtType.NBT_TAG_END);
+				out.write(NbtTag.NBT_TAG_END.ordinal());
 				break;
-			case NbtType.NBT_TAG_INT_ARRAY:
+			case NBT_TAG_INT_ARRAY:
 				out.writeInt(((NbtIntArray) nbt).getValue().length);
 				for (int value : ((NbtIntArray) nbt).getValue()) {
 					out.writeInt(value);
 				}
 				break;
-			case NbtType.NBT_TAG_LONG_ARRAY:
+			case NBT_TAG_LONG_ARRAY:
 				out.writeInt(((NbtLongArray) nbt).getValue().length);
 				for (long value : ((NbtLongArray) nbt).getValue()) {
 					out.writeLong(value);

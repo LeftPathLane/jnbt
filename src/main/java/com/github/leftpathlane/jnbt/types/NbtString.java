@@ -4,7 +4,7 @@ public class NbtString extends NbtType<String> {
 	private final String value;
 
 	public NbtString(String name, String value) {
-		super(name, NBT_TAG_STRING);
+		super(name, NbtTag.NBT_TAG_STRING);
 		this.value = value;
 	}
 

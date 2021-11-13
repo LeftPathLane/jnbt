@@ -4,14 +4,14 @@ import java.util.*;
 
 public class NbtList <T extends NbtType<?>> extends NbtType<List<T>> {
 	private final List<T> value;
-	private final int type;
+	private final NbtTag type;
 
-	public NbtList(String name, int type) {
+	public NbtList(String name, NbtTag type) {
 		this(name, type, new ArrayList<>());
 	}
 
-	public NbtList(String name, int type, List<T> value) {
-		super(name, NBT_TAG_LIST);
+	public NbtList(String name, NbtTag type, List<T> value) {
+		super(name, NbtTag.NBT_TAG_LIST);
 		this.type = type;
 		this.value = value;
 	}
@@ -25,7 +25,7 @@ public class NbtList <T extends NbtType<?>> extends NbtType<List<T>> {
 		return value;
 	}
 
-	public int getType() {
+	public NbtTag getType() {
 		return type;
 	}
 

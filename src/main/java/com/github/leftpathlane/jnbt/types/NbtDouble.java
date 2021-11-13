@@ -4,7 +4,7 @@ public class NbtDouble extends NbtType<Double> {
 	private final double value;
 
 	public NbtDouble(String name, double value) {
-		super(name, NBT_TAG_DOUBLE);
+		super(name, NbtTag.NBT_TAG_DOUBLE);
 		this.value = value;
 	}
 

@@ -19,7 +19,7 @@ public class NbtReader {
 
 	public NbtReader(File file) throws IOException {
 		byte[] data = Files.readAllBytes(file.toPath());
-		if (data[0] == NbtType.NBT_TAG_COMPOUND) {
+		if (data[0] == NbtTag.NBT_TAG_COMPOUND.ordinal()) {
 			in = new DataInputStream(new ByteArrayInputStream(data));
 		} else {
 			try (GZIPInputStream gzin = new GZIPInputStream(new ByteArrayInputStream(data));
@@ -43,35 +43,35 @@ public class NbtReader {
 	}
 
 	public NbtCompound readAll() throws IOException, NbtTagException {
-		return (NbtCompound) read(false, 0);
+		return (NbtCompound) read(false, NbtTag.NBT_TAG_END);
 	}
 
-	private NbtType read(boolean list, int listId) throws IOException, NbtTagException {
-		int id = list ? listId : in.read();
-		if (id == NbtType.NBT_TAG_END) return null;
+	private NbtType read(boolean list, NbtTag listId) throws IOException, NbtTagException {
+		NbtTag id = list ? listId : NbtTag.values()[in.read()];
+		if (id == NbtTag.NBT_TAG_END) return null;
 		String name = list ? "" : readString();
 		switch (id) {
-			case NbtType.NBT_TAG_BYTE:
+			case NBT_TAG_BYTE:
 				return new NbtByte(name, in.readByte());
-			case NbtType.NBT_TAG_SHORT:
+			case NBT_TAG_SHORT:
 				return new NbtShort(name, in.readShort());
-			case NbtType.NBT_TAG_INT:
+			case NBT_TAG_INT:
 				return new NbtInt(name, in.readInt());
-			case NbtType.NBT_TAG_LONG:
+			case NBT_TAG_LONG:
 				return new NbtLong(name, in.readLong());
-			case NbtType.NBT_TAG_FLOAT:
+			case NBT_TAG_FLOAT:
 				return new NbtFloat(name, in.readFloat());
-			case NbtType.NBT_TAG_DOUBLE:
+			case NBT_TAG_DOUBLE:
 				return new NbtDouble(name, in.readDouble());
-			case NbtType.NBT_TAG_BYTE_ARRAY: {
+			case NBT_TAG_BYTE_ARRAY: {
 				byte[] bytes = new byte[in.readInt()];
 				in.read(bytes);
 				return new NbtByteArray(name, bytes);
 			}
-			case NbtType.NBT_TAG_STRING:
+			case NBT_TAG_STRING:
 				return new NbtString(name, readString());
-			case NbtType.NBT_TAG_LIST: {
-				int tagId = in.read();
+			case NBT_TAG_LIST: {
+				NbtTag tagId = NbtTag.valueOf(in.read());
 				int length = in.readInt();
 				List<NbtType> value = new ArrayList<>(length);
 				for (int i = 0; i < length; i++) {
@@ -79,15 +79,15 @@ public class NbtReader {
 				}
 				return new NbtList(name, tagId, value);
 			}
-			case NbtType.NBT_TAG_COMPOUND: {
+			case NBT_TAG_COMPOUND: {
 				Map<String, NbtType<?>> value = new HashMap<>();
 				NbtType type;
-				while ((type = read(false, 0)) != null) {
+				while ((type = read(false, NbtTag.NBT_TAG_END)) != null) {
 					value.put(type.getName(), type);
 				}
 				return new NbtCompound(name, value);
 			}
-			case NbtType.NBT_TAG_INT_ARRAY: {
+			case NBT_TAG_INT_ARRAY: {
 				int length = in.readInt();
 				int[] ints = new int[length];
 				for (int i = 0; i < length; i++) {
@@ -95,7 +95,7 @@ public class NbtReader {
 				}
 				return new NbtIntArray(name, ints);
 			}
-			case NbtType.NBT_TAG_LONG_ARRAY: {
+			case NBT_TAG_LONG_ARRAY: {
 				int length = in.readInt();
 				long[] longs = new long[length];
 				for (int i = 0; i < length; i++) {
@@ -116,15 +116,15 @@ public class NbtReader {
 	}
 
 	public static class NbtTagException extends Exception {
-	    private final int nbtTagId;
+	    private final NbtTag nbtTagId;
         private final String nbtTagName;
 
-        private NbtTagException(int nbtTagId, String nbtTagName) {
+        private NbtTagException(NbtTag nbtTagId, String nbtTagName) {
             this.nbtTagId = nbtTagId;
             this.nbtTagName = nbtTagName;
         }
 
-        public int getId() {
+        public NbtTag getId() {
             return nbtTagId;
         }
 
