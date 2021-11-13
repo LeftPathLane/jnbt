@@ -80,7 +80,7 @@ public class NbtReader {
 				return new NbtList(name, tagId, value);
 			}
 			case NbtType.NBT_TAG_COMPOUND: {
-				Map<String, NbtType> value = new HashMap<>();
+				Map<String, NbtType<?>> value = new HashMap<>();
 				NbtType type;
 				while ((type = read(false, 0)) != null) {
 					value.put(type.getName(), type);

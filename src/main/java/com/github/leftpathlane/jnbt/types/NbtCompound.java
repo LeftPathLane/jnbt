@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-public class NbtCompound extends NbtType<Map<String, NbtType>> {
-	private final Map<String, NbtType> value;
+public class NbtCompound extends NbtType<Map<String, NbtType<?>>> {
+	private final Map<String, NbtType<?>> value;
 
 	public NbtCompound() {
 		this(null, new HashMap<>());
@@ -16,12 +16,12 @@ public class NbtCompound extends NbtType<Map<String, NbtType>> {
 		this(name, new HashMap<>());
 	}
 
-	public NbtCompound(String name, Map<String, NbtType> value) {
+	public NbtCompound(String name, Map<String, NbtType<?>> value) {
 		super(name, NBT_TAG_COMPOUND);
 		this.value = value;
 	}
 
-	public void addNbt(NbtType nbt) {
+	public void addNbt(NbtType<?> nbt) {
 		value.put(nbt.getName(), nbt);
 	}
 
@@ -57,11 +57,11 @@ public class NbtCompound extends NbtType<Map<String, NbtType>> {
 		value.put(name, new NbtString(name, val));
 	}
 
-	public void addNbt(String name, int nbtType, List<NbtType> val) {
+	public void addNbt(String name, int nbtType, List<NbtType<?>> val) {
 		value.put(name, new NbtList(name, nbtType, val));
 	}
 
-	public void addNbt(String name, HashMap<String, NbtType> val) {
+	public void addNbt(String name, HashMap<String, NbtType<?>> val) {
 		value.put(name, new NbtCompound(name, val));
 	}
 
@@ -78,7 +78,7 @@ public class NbtCompound extends NbtType<Map<String, NbtType>> {
 	}
 
 	@Override
-	public Map<String, NbtType> getValue() {
+	public Map<String, NbtType<?>> getValue() {
 		return value;
 	}
 
@@ -97,7 +97,7 @@ public class NbtCompound extends NbtType<Map<String, NbtType>> {
 		if (object instanceof NbtCompound) {
 			if (value.size() != ((NbtCompound) object).value.size()) return false;
 			NbtType<?> t;
-			for (Map.Entry<String, NbtType> entry : ((NbtCompound) object).value.entrySet()) {
+			for (Map.Entry<String, NbtType<?>> entry : ((NbtCompound) object).value.entrySet()) {
 				t = value.get(entry.getKey());
 				if (t == null) return false;
 				if (!t.equals(entry.getValue())) return false;

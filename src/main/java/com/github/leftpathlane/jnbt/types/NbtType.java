@@ -66,7 +66,7 @@ public abstract class NbtType<T> {
 	}
 
 	public NbtList asList() {
-		return id == NBT_TAG_LIST ? (NbtList) this : null;
+		return id == NBT_TAG_LIST ? (NbtList<?>) this : null;
 	}
 
 	public NbtCompound asCompound() {

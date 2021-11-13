@@ -1,5 +1,7 @@
 package com.github.leftpathlane.jnbt.utils;
 
+import java.util.List;
+
 import com.github.leftpathlane.jnbt.types.*;
 
 public class Printer {
@@ -18,7 +20,8 @@ public class Printer {
 		} else if (type.getId() == NbtType.NBT_TAG_LIST) {
 			String tab = new String(new char[indent]).replace("\0", "\t");
 			System.out.println(String.format("%s%s(\"%s\"): %d entries of %d {", tab, type.getClass().getSimpleName(), type.getName(), type.asList().getValue().size(), type.asList().getType()));
-			for (NbtType innerType : type.asList().getValue()) {
+			
+			for (NbtType innerType : ((List<NbtType>)((NbtList) type).getValue())) {
 				print(innerType, indent + 1);
 			}
 			System.out.println(tab + "}");

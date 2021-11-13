@@ -5,6 +5,7 @@ import com.github.leftpathlane.jnbt.types.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 public class NbtWriter {
 	private final DataOutputStream out;
@@ -47,7 +48,7 @@ public class NbtWriter {
 			case NbtType.NBT_TAG_LIST:
 				out.write(((NbtList) nbt).getType());
 				out.writeInt(((NbtList) nbt).getValue().size());
-				for (NbtType type : ((NbtList) nbt).getValue()) {
+				for (NbtType type : ((List<NbtType>)((NbtList) nbt).getValue())) {
 					writeNbt(type, true);
 				}
 				break;
